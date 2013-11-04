@@ -10,7 +10,7 @@ module.exports = function(grunt) {
 		compass: {
 			dist: {
 				options: {
-					sassDir: "src/styles/",
+					sassDir: "static/src/styles/",
 					cssDir: "static/build/css/",
 					raw: "preferred_syntax = :scss\n"
 				}
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 		// Concat definitions
 		concat: {
 			build: {
-				src: ["src/js/jquery.krousel.js"],
+				src: ["static/src/js/jquery.krousel.js"],
         dest: "static/build/js/jquery.krousel.js"
 			}
 		},
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
 			analysis: {
 				files: {
 					"static/report/output/directory": [
-						"src/**/*.js",
+						"static/src/**/*.js",
 						"test/**/*.js"
 					]
 				}
@@ -67,14 +67,14 @@ module.exports = function(grunt) {
 		// Watching...
 		watch: {
 			styles: {
-				files: ["src/styles/*.scss"],
+				files: ["static/src/styles/*.scss"],
 				tasks: [
 					"compass",
 					"cssmin"
 				]
 			},
 			scripts: {
-				files: ["src/js/**/*.js"],
+				files: ["static/src/js/**/*.js"],
 				tasks: [
 					"concat",
 					"uglify",

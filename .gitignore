@@ -1,8 +1,7 @@
-node_modules
 .DS_Store
 .sass-cache
-.project
-.classpath
-reports
+node_modules
+report
+static/report
 static/build/js/*
 static/build/styles/*
