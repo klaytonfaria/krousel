@@ -1,0 +1,8 @@
+/* line 1, ../../src/styles/krousel.scss */
+body {
+  background-color: #EFEFEF;
+}
+/* line 3, ../../src/styles/krousel.scss */
+body ul {
+  list-style-type: none;
+}

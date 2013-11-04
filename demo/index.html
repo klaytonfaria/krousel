@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>kroussel</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+		<script src="../dist/jquery.boilerplate.js"></script>
+	</head>
+	<body>
+		<script>
+			$(function() {
+				$("#element").defaultPluginName({
+					propertyName: "a custom value"
+				});
+			});
+		</script>
+
+
+		<div class="krousel slider">
+
+			<div class="krousel-wrapper">
+				<ul class="krousel-items">
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350&text=1"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350&text=2"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350&text=3"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350&text=4"></a></li>
+				</ul>
+
+				<div class="pager">
+				  <div class="previous"><a href="#">Previous</a></div>
+				  <div class="next"><a href="#">Next</a></div>
+				</div>
+
+				<ul class="pagination">
+				  <li class="active" ><a href="#">&laquo;</a></li>
+				  <li><a href="#">1</a></li>
+				  <li><a href="#">2</a></li>
+				  <li><a href="#">3</a></li>
+				  <li><a href="#">4</a></li>
+				  <li><a href="#">5</a></li>
+				  <li><a href="#">&raquo;</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</body>
+</html>
