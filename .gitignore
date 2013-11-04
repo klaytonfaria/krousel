@@ -1,0 +1,9 @@
+krousel
+.DS_Store
+.sass-cache
+node_modules
+reports
+.project
+.classpath
+static/build/js/*
+static/build/styles/*
