@@ -1,0 +1,13 @@
+/* line 1, ../../../src/styles/krousel.scss */
+* {
+  -webkit-box-sizing: border-box;
+  /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;
+  /* Firefox, other Gecko */
+  box-sizing: border-box;
+}
+
+/* line 7, ../../../src/styles/krousel.scss */
+body {
+  background-color: #EFEFEF;
+}

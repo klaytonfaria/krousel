@@ -1,4 +1,4 @@
 krousel
 =======
 
-plugin
+WIP jquery plugin...
