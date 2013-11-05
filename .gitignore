@@ -1,7 +1,8 @@
 .DS_Store
 .sass-cache
 node_modules
-report
-static/report
+static/report/**/assets/
+static/report/**/*.html
+static/report/**/*.js
 static/build/js/*
 static/build/styles/*
