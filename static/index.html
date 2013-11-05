@@ -10,16 +10,18 @@
 		<div class="krousel slider">
 			<div class="krousel-wrapper">
 				<ul class="krousel-items">
-					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/FFCC00&text=1"></a></li>
-					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/CC9933&text=2"></a></li>
-					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/F37B20&text=3"></a></li>
-					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/134479&text=4"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/FFB347/FFFFFF&text=1"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/779ECB/FFFFFF&text=2"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/836953/FFFFFF&text=3"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/FF6961/FFFFFF&text=4"></a></li>
 				</ul>
 			</div>
 		</div>
 		<script>
 			$(function() {
 				$(".krousel").krousel({
+					steps			:   1,		// Total of steps for pagination
+					initialPage:  1,
 					controls: {
 						pager: true,
 						pagination: true
