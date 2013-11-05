@@ -3,7 +3,8 @@
 	<head>
 		<title>kroussel</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-		<script src="../dist/jquery.boilerplate.js"></script>
+		<script src="../static/build/js/jquery.krousel.js"></script>
+		<link rel="stylesheet" type="text/css" href="../static/build/css/krousel.min.css">
 	</head>
 	<body>
 		<script>
@@ -15,32 +16,27 @@
 		</script>
 
 
-		<div class="krousel slider">
+		<div class="krousel clearfix slider">
 
-			<div class="krousel-wrapper">
+			<div class="krousel-wrapper clearfix">
 				<ul class="krousel-items">
-					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350&text=1"></a></li>
-					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350&text=2"></a></li>
-					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350&text=3"></a></li>
-					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350&text=4"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/FFCC00&text=1"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/CC9933&text=2"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/F37B20&text=3"></a></li>
+					<li class="krousel-item"><a href="#" class="krousel-link"><img src="http://placehold.it/1000x350/134479&text=4"></a></li>
 				</ul>
-
-				<div class="pager">
-				  <div class="previous"><a href="#">Previous</a></div>
-				  <div class="next"><a href="#">Next</a></div>
-				</div>
-
-				<ul class="pagination">
-				  <li class="active" ><a href="#">&laquo;</a></li>
-				  <li><a href="#">1</a></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
-				  <li><a href="#">&raquo;</a></li>
-				</ul>
-
 			</div>
+
+			<div class="pager previous"><button class="pager-button">&nbsp;</button></div>
+			<div class="pager next"><button class="pager-button">&nbsp;</button></div>
+
+			<ul class="pagination">
+			  <li class="pagination-item first-item active"><a href="#"></a></li>
+			  <li class="pagination-item"><a href="#"></a></li>
+			  <li class="pagination-item"><a href="#"></a></li>
+			  <li class="pagination-item"><a href="#"></a></li>
+			  <li class="pagination-item last-item"><a href="#"></a></li>
+			</ul>
 		</div>
 	</body>
 </html>

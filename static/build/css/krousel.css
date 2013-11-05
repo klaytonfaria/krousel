@@ -1,13 +1,161 @@
-/* line 1, ../../../src/styles/krousel.scss */
-* {
+/**********************************/
+/**********************************/
+/* Browser helpers */
+/* line 12, ../../src/styles/krousel.scss */
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  /* 1 */
+  display: table;
+  /* 2 */
+}
+
+/* line 17, ../../src/styles/krousel.scss */
+.clearfix:after {
+  clear: both;
+}
+
+/**********************************/
+/* line 22, ../../src/styles/krousel.scss */
+.krousel {
+  position: relative;
+  width: 1000px;
+  height: 350px;
+  /* Items */
+  /* Pagination */
+  /* Pager */
+}
+/* line 27, ../../src/styles/krousel.scss */
+.krousel * {
   -webkit-box-sizing: border-box;
   /* Safari/Chrome, other WebKit */
   -moz-box-sizing: border-box;
   /* Firefox, other Gecko */
   box-sizing: border-box;
 }
-
-/* line 7, ../../../src/styles/krousel.scss */
-body {
-  background-color: #EFEFEF;
+/* line 33, ../../src/styles/krousel.scss */
+.krousel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+/* line 40, ../../src/styles/krousel.scss */
+.krousel .krousel-wrapper {
+  width: 1000px;
+  height: 350px;
+  overflow: hidden;
+}
+/* line 47, ../../src/styles/krousel.scss */
+.krousel .krousel-item {
+  float: left;
+}
+/* line 52, ../../src/styles/krousel.scss */
+.krousel .pagination {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+/* line 58, ../../src/styles/krousel.scss */
+.krousel .pagination-item {
+  width: 14px;
+  height: 14px;
+  float: left;
+  margin-right: 10px;
+  border-radius: 50px;
+  border: 1px solid #666666;
+  background-color: #999999;
+  cursor: pointer;
+}
+/* line 68, ../../src/styles/krousel.scss */
+.krousel .pagination-item.last-item {
+  margin-right: 0;
+}
+/* line 72, ../../src/styles/krousel.scss */
+.krousel .pagination-item.active {
+  background-color: #f37b20;
+  border: 1px solid #f37b20;
+}
+/* line 79, ../../src/styles/krousel.scss */
+.krousel .pager {
+  position: absolute;
+  top: 50%;
+  margin-top: -50px;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+/* line 86, ../../src/styles/krousel.scss */
+.krousel .pager .pager-button {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+  border-radius: 50px;
+  background-color: #999999;
+  cursor: pointer;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transition: all 0.1s linear;
+  -moz-transition: all 0.1s linear;
+  -o-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+  -webkit-transition-delay: 0.3s;
+  -moz-transition-delay: 0.3s;
+  -o-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+}
+/* line 98, ../../src/styles/krousel.scss */
+.krousel .pager .pager-button:hover {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
+  opacity: 0.7;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+/* line 105, ../../src/styles/krousel.scss */
+.krousel .previous {
+  left: 0;
+}
+/* line 107, ../../src/styles/krousel.scss */
+.krousel .previous .pager-button {
+  left: -100px;
+}
+/* line 112, ../../src/styles/krousel.scss */
+.krousel .next {
+  right: 0;
+}
+/* line 114, ../../src/styles/krousel.scss */
+.krousel .next .pager-button {
+  right: -100px;
+}
+/* line 120, ../../src/styles/krousel.scss */
+.krousel:hover .pager-button {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+}
+/* line 123, ../../src/styles/krousel.scss */
+.krousel:hover .previous {
+  left: 0;
+}
+/* line 125, ../../src/styles/krousel.scss */
+.krousel:hover .previous .pager-button {
+  left: -50px;
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  transition-delay: 0s;
+}
+/* line 131, ../../src/styles/krousel.scss */
+.krousel:hover .next {
+  right: 0;
+}
+/* line 133, ../../src/styles/krousel.scss */
+.krousel:hover .next .pager-button {
+  right: -50px;
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  -o-transition-delay: 0s;
+  transition-delay: 0s;
 }
