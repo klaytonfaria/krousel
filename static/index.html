@@ -19,7 +19,12 @@
 		</div>
 		<script>
 			$(function() {
-				$(".krousel").krousel();
+				$(".krousel").krousel({
+					controls: {
+						pager: true,
+						pagination: true
+					}
+				});
 			});
 		</script>
 	</body>

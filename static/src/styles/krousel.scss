@@ -47,10 +47,15 @@ $krousel-pager-size: 100px;
   .krousel-items {
     display: block;
     white-space: nowrap;
+    font-size: 0;
   }
   .krousel-item {
-    display: block;
+    display: inline-block;
+    font-size: 16px;
     a {
+      display: block;
+    }
+    img {
       display: block;
     }
   }
