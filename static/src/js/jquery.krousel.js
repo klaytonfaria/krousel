@@ -1,58 +1,75 @@
-// the semi-colon before function invocation is a safety net against concatenated
-// scripts and/or other plugins which may not be closed properly.
-;(function ( $, window, document, undefined ) {
+(function ( $, window, document, undefined ) {
+	"use strict";
 
-		// undefined is used here as the undefined global variable in ECMAScript 3 is
-		// mutable (ie. it can be changed by someone else). undefined isn't really being
-		// passed in so we can ensure the value of it is truly undefined. In ES5, undefined
-		// can no longer be modified.
-
-		// window and document are passed through as local variable rather than global
-		// as this (slightly) quickens the resolution process and can be more efficiently
-		// minified (especially when both are regularly referenced in your plugin).
-
-		// Create the defaults once
-		var pluginName = "defaultPluginName",
-				defaults = {
-				propertyName: "value"
+	var pluginName = "krousel",
+		defaults = {
+			itemsPage	: 1,			// Total of items for page
+			steps			: 1,			// Total of steps for pagination
+			controls: {
+				pager: true,			// <boolean> Enable / disable prev and next controls
+				pagination: true	// <boolean> Enable / disable pagination control
+			}
 		};
 
-		// The actual plugin constructor
-		function Plugin ( element, options ) {
-				this.element = element;
-				// jQuery has an extend method which merges the contents of two or
-				// more objects, storing the result in the first object. The first object
-				// is generally empty as we don't want to alter the default options for
-				// future instances of the plugin
-				this.options = $.extend( {}, defaults, options );
-				this._defaults = defaults;
-				this._name = pluginName;
-				this.init();
-		}
+	function Plugin (element, options ) {
+		this.element = element;
+		this.options = $.extend( {}, defaults, options );
+		this._defaults = defaults;
+		this._name = pluginName;
+		this.init();
+	}
 
-		Plugin.prototype = {
-				init: function () {
-						// Place initialization logic here
-						// You already have access to the DOM element and
-						// the options via the instance, e.g. this.element
-						// and this.options
-						// you can add more functions like the one below and
-						// call them like so: this.yourOtherFunction(this.element, this.options).
-						console.log("xD");
-				},
-				yourOtherFunction: function () {
-						// some logic
+	/* Pagination ***************************************************************/
+
+	function createPagination (element) {
+		var totalItems = element.find("li").size(),
+			items = "";
+		if (totalItems > 1) {
+			element.append("<ul class='pagination'></ul>");
+			for (var i = 0; i < totalItems; i++) {
+				if (i === 0) {
+					items += "<li class='pagination-item first'><a href='#'></a></li>";
+				} else if (i === totalItems) {
+					items += "<li class='pagination-item last'><a href='#'></a></li>";
+				} else {
+					items += "<li class='pagination-item'><a href='#'></a></li>";
 				}
-		};
+			}
+			element.find(".pagination").append(items);
+		}
+	}
 
-		// A really lightweight plugin wrapper around the constructor,
-		// preventing against multiple instantiations
-		$.fn[ pluginName ] = function ( options ) {
-				return this.each(function() {
-						if ( !$.data( this, "plugin_" + pluginName ) ) {
-								$.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
-						}
-				});
-		};
+	function createPager (element) {
+		element.append("<div class='pager previous'><button class='pager-button'>" +
+			"&nbsp;</button></div> " +
+			"<div class='pager next'><button class='pager-button'>" +
+			"&nbsp;</button></div>");
+	}
 
-})( jQuery, window, document );
+	/* Mount controls ***********************************************************/
+
+	function mountControls (element, options) {
+		element = $(element);
+		if (options.controls.pager) {
+			createPager(element);
+		}
+		if (options.controls.pagination) {
+			createPagination(element);
+		}
+	}
+
+
+	Plugin.prototype = {
+		init: function () {
+			mountControls(this.element, this.options);
+		}
+	};
+
+	$.fn[pluginName] = function ( options ) {
+		return this.each(function() {
+			if ( !$.data( this, "plugin_" + pluginName ) ) {
+				$.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+			}
+		});
+	};
+})($, window, document);

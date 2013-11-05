@@ -46,16 +46,25 @@
   overflow: hidden;
 }
 /* line 47, ../../src/styles/krousel.scss */
-.krousel .krousel-item {
-  float: left;
+.krousel .krousel-items {
+  display: block;
+  white-space: nowrap;
 }
-/* line 52, ../../src/styles/krousel.scss */
+/* line 51, ../../src/styles/krousel.scss */
+.krousel .krousel-item {
+  display: block;
+}
+/* line 53, ../../src/styles/krousel.scss */
+.krousel .krousel-item a {
+  display: block;
+}
+/* line 59, ../../src/styles/krousel.scss */
 .krousel .pagination {
   position: absolute;
   bottom: 10px;
   right: 10px;
 }
-/* line 58, ../../src/styles/krousel.scss */
+/* line 65, ../../src/styles/krousel.scss */
 .krousel .pagination-item {
   width: 14px;
   height: 14px;
@@ -66,16 +75,16 @@
   background-color: #999999;
   cursor: pointer;
 }
-/* line 68, ../../src/styles/krousel.scss */
-.krousel .pagination-item.last-item {
+/* line 75, ../../src/styles/krousel.scss */
+.krousel .pagination-item.last {
   margin-right: 0;
 }
-/* line 72, ../../src/styles/krousel.scss */
+/* line 79, ../../src/styles/krousel.scss */
 .krousel .pagination-item.active {
   background-color: #f37b20;
   border: 1px solid #f37b20;
 }
-/* line 79, ../../src/styles/krousel.scss */
+/* line 86, ../../src/styles/krousel.scss */
 .krousel .pager {
   position: absolute;
   top: 50%;
@@ -84,7 +93,7 @@
   height: 100px;
   overflow: hidden;
 }
-/* line 86, ../../src/styles/krousel.scss */
+/* line 93, ../../src/styles/krousel.scss */
 .krousel .pager .pager-button {
   position: relative;
   width: 100%;
@@ -105,7 +114,7 @@
   -o-transition-delay: 0.3s;
   transition-delay: 0.3s;
 }
-/* line 98, ../../src/styles/krousel.scss */
+/* line 105, ../../src/styles/krousel.scss */
 .krousel .pager .pager-button:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
   opacity: 0.7;
@@ -114,32 +123,32 @@
   -o-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-/* line 105, ../../src/styles/krousel.scss */
+/* line 112, ../../src/styles/krousel.scss */
 .krousel .previous {
   left: 0;
 }
-/* line 107, ../../src/styles/krousel.scss */
+/* line 114, ../../src/styles/krousel.scss */
 .krousel .previous .pager-button {
   left: -100px;
 }
-/* line 112, ../../src/styles/krousel.scss */
+/* line 119, ../../src/styles/krousel.scss */
 .krousel .next {
   right: 0;
 }
-/* line 114, ../../src/styles/krousel.scss */
+/* line 121, ../../src/styles/krousel.scss */
 .krousel .next .pager-button {
   right: -100px;
 }
-/* line 120, ../../src/styles/krousel.scss */
+/* line 127, ../../src/styles/krousel.scss */
 .krousel:hover .pager-button {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
 }
-/* line 123, ../../src/styles/krousel.scss */
+/* line 130, ../../src/styles/krousel.scss */
 .krousel:hover .previous {
   left: 0;
 }
-/* line 125, ../../src/styles/krousel.scss */
+/* line 132, ../../src/styles/krousel.scss */
 .krousel:hover .previous .pager-button {
   left: -50px;
   -webkit-transition-delay: 0s;
@@ -147,11 +156,11 @@
   -o-transition-delay: 0s;
   transition-delay: 0s;
 }
-/* line 131, ../../src/styles/krousel.scss */
+/* line 138, ../../src/styles/krousel.scss */
 .krousel:hover .next {
   right: 0;
 }
-/* line 133, ../../src/styles/krousel.scss */
+/* line 140, ../../src/styles/krousel.scss */
 .krousel:hover .next .pager-button {
   right: -50px;
   -webkit-transition-delay: 0s;

@@ -44,8 +44,15 @@ $krousel-pager-size: 100px;
   }
 
   /* Items */
+  .krousel-items {
+    display: block;
+    white-space: nowrap;
+  }
   .krousel-item {
-    float: left;
+    display: block;
+    a {
+      display: block;
+    }
   }
 
   /* Pagination */
@@ -65,7 +72,7 @@ $krousel-pager-size: 100px;
     background-color: $light-gray;
     cursor: pointer;
 
-    &.last-item {
+    &.last {
       margin-right: 0;
     }
 
