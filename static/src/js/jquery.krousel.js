@@ -1,4 +1,4 @@
-(function ( $, window, document, undefined ) {
+(function ( $, window, document, undefined) {
 	"use strict";
 
 	var pluginName = "krousel",
@@ -6,7 +6,7 @@
 			initialPage		: 1,			// Initial page
 			itemsPage			: 1,			// Total of items for page
 			steps					: 1,			// Total of steps for pagination
-			rewind				: false,		// Set pagination as infinite or rewind
+			rewind				: true,		// Set pagination as infinite or rewind
 			animationTime	: 300,		// Set animation time
 			controls: {
 				pager: true,				// <boolean> Enable / disable prev and next controls
@@ -58,8 +58,8 @@
 		var slideWidth = element.find(".krousel-item").width(),
 			slideLeftPosition = (eq - 1) * (options.steps * slideWidth);
 
-		element.find(".krousel-wrapper").stop().animate({
-			scrollLeft: slideLeftPosition
+		element.find(".krousel-items").stop().animate({
+			left: -slideLeftPosition
 		}, options.animationTime);
 
 		// Set active page
@@ -127,6 +127,22 @@
 				navigateTo (element, options, (eq - 1));
 			}
 		});
+
+		window.onresize = function() {
+      if (options.itemsPage === 1) {
+        options.properties.itemWidth = element
+          .find(".krousel-item:eq(0)").width();
+
+        var containerWidth = element.find(".krousel-items").width(),
+          itemBacking = -(options.properties.itemWidth - containerWidth) / 2;
+
+
+        element.find(".krousel-item").width();
+        element.find(".krousel-item")
+					.children().css("left", itemBacking + "px");
+      }
+    };
+
 	}
 
 

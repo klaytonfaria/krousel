@@ -3,8 +3,10 @@
 $dark-gray: #666;
 $light-gray: #999;
 $orange: #F37B20;
-$krousel-default-width: 1000px;
-$krousel-default-height : 350px;
+$krousel-default-width: auto;
+$krousel-default-max-width: 1000px;
+$krousel-default-height : auto;
+$krousel-default-max-height : 350px;
 $krousel-pager-size: 100px;
 /**********************************/
 /* Browser helpers */
@@ -23,6 +25,8 @@ $krousel-pager-size: 100px;
   position: relative;
   width: $krousel-default-width;
   height: $krousel-default-height;
+  max-width: $krousel-default-max-width;
+  max-height: $krousel-default-max-height;
 
   * {
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
@@ -45,6 +49,7 @@ $krousel-pager-size: 100px;
 
   /* Items */
   .krousel-items {
+    position: relative;
     display: block;
     white-space: nowrap;
     font-size: 0;
@@ -53,9 +58,11 @@ $krousel-pager-size: 100px;
     display: inline-block;
     font-size: 16px;
     a {
+      position: relative;
       display: block;
     }
     img {
+      position: relative;
       display: block;
     }
   }
