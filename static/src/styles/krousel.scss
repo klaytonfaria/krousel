@@ -106,7 +106,8 @@ $krousel-pager-size: 100px;
       cursor: pointer;
       @include opacity(0);
       @include transition(all 0.1s linear);
-      @include transition-delay(.3s);
+      @include transition-delay(.15s);
+      outline: none;
       &:hover {
         @include opacity(.7);
         @include transition(all 0.2s linear);
@@ -137,6 +138,9 @@ $krousel-pager-size: 100px;
       .pager-button {
         left: -($krousel-pager-size / 2);
         @include transition-delay(0s);
+        &.hide {
+          left: -($krousel-pager-size);
+        }
       }
     }
 
@@ -145,6 +149,9 @@ $krousel-pager-size: 100px;
       .pager-button {
         right: -($krousel-pager-size / 2);
         @include transition-delay(0s);
+        &.hide {
+          right: -($krousel-pager-size);
+        }
       }
     }
   }
