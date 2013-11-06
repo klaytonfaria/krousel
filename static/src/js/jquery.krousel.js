@@ -3,43 +3,73 @@
 
 	var pluginName = "krousel",
 		defaults = {
-			itemsPage	:   1,		// Total of items for page
-			steps			:   1,		// Total of steps for pagination
-			initialPage:  1,		// Initial page
+			initialPage		: 1,			// Initial page
+			itemsPage			: 1,			// Total of items for page
+			steps					: 1,			// Total of steps for pagination
+			rewind				: false,		// Set pagination as infinite or rewind
+			animationTime	: 300,		// Set animation time
 			controls: {
-				pager: true,			// <boolean> Enable / disable prev and next controls
-				pagination: true	// <boolean> Enable / disable pagination control
+				pager: true,				// <boolean> Enable / disable prev and next controls
+				pagination: true		// <boolean> Enable / disable pagination control
 			}
 		};
 
-	function Plugin (element, options ) {
+	function Plugin (element, options) {
 		this.element = element;
 		this.options = $.extend( {}, defaults, options );
 		this._defaults = defaults;
 		this._name = pluginName;
+		this.initProperties();
 		this.init();
 	}
+
 	/* Navigation ***************************************************************/
 
-	function setActivePage (element, eq) {
-		element.attr("data-active-page", (eq + 1)).find(".pagination-item")
-			.removeClass("active").eq(eq).addClass("active");
+	function setActivePage (element, options, eq) {
+		element.find(".pagination-item").removeClass("active").eq(eq)
+			.addClass("active");
 	}
 
 	function navigateTo (element, options, eq) {
+		if (options.rewind) {
+			options.properties.currentSlide = eq;
+			if (eq > options.properties.totalItems) {
+				eq = 1;
+				options.properties.currentSlide = eq;
+			}
+			if (eq <= 0) {
+				eq = options.properties.totalItems;
+				options.properties.currentSlide = eq;
+			}
+		} else {
+			options.properties.currentSlide = eq;
+			if (eq >= (options.properties.totalItems)) {
+				element.find(".next .pager-button").addClass("hide");
+			} else {
+				element.find(".next .pager-button").removeClass("hide");
+			}
+			if (eq <= 1) {
+				element.find(".previous .pager-button").addClass("hide");
+			} else {
+				element.find(".previous .pager-button").removeClass("hide");
+			}
+		}
+
 		var slideWidth = element.find(".krousel-item").width(),
 			slideLeftPosition = (eq - 1) * (options.steps * slideWidth);
-		element.find(".krousel-wrapper").animate({
+
+		element.find(".krousel-wrapper").stop().animate({
 			scrollLeft: slideLeftPosition
-		});
+		}, options.animationTime);
+
 		// Set active page
-		setActivePage (element, (eq - 1));
+		setActivePage (element, options, (eq - 1));
 	}
 
 	/* Pagination ***************************************************************/
 
-	function createPagination (element) {
-		var totalItems = element.find("li").size(),
+	function createPagination (element, options) {
+		var totalItems = options.properties.totalItems,
 			items = "";
 		if (totalItems > 1) {
 			element.append("<ul class='pagination'></ul>");
@@ -73,7 +103,7 @@
 			createPager(element);
 		}
 		if (options.controls.pagination) {
-			createPagination(element);
+			createPagination(element, options);
 		}
 		if (options.controls.pagination || options.controls.pager) {
 			bindControlsEvents (element, options);
@@ -89,7 +119,7 @@
 		});
 		// Pager
 		element.find(".pager-button").click(function() {
-			var eq = parseInt(element.attr("data-active-page"), 10);
+			var eq = options.properties.currentSlide;
 			if (this.parentNode.getAttribute("class").indexOf("next") >= 0) {
 				navigateTo (element, options, (eq + 1));
 			}
@@ -106,16 +136,27 @@
 		init: function () {
 			var element = $(this.element),
 				options = this.options;
+
 			mountControls(element, options);
 			navigateTo(element, options, options.initialPage); // Setting initial page
+		},
+		initProperties: function () {
+			var element = $(this.element),
+				options = this.options;
+
+			options.properties = {
+				currentSlide: options.initialPage,
+				totalItems: element.find("li").size()
+			};
 		}
 	};
 
-	$.fn[pluginName] = function ( options ) {
+	$.fn[pluginName] = function (options) {
 		return this.each(function() {
 			if ( !$.data( this, "plugin_" + pluginName ) ) {
-				$.data( this, "plugin_" + pluginName, new Plugin( this, options ) );
+				$.data( this, "plugin_" + pluginName, new Plugin(this, options));
 			}
 		});
 	};
+
 })($, window, document);
