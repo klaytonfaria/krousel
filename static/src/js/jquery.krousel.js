@@ -56,7 +56,15 @@
 		}
 
 		var slideWidth = element.find(".krousel-item").width(),
-			slideLeftPosition = (eq - 1) * (options.steps * slideWidth);
+			slideLeftPosition = (eq - 1) * (options.steps * slideWidth),
+			totalSlides = element.find("li").size(),
+			estimateTotalSlides = options.itemsPage * options.properties.totalItems;
+
+		if (eq >= (options.properties.totalItems - 1)) {
+			slideLeftPosition = slideLeftPosition + ((estimateTotalSlides - totalSlides) * slideWidth);
+		}
+
+
 
 		element.find(".krousel-items").stop().animate({
 			left: -slideLeftPosition
@@ -69,8 +77,11 @@
 	/* Pagination ***************************************************************/
 
 	function createPagination (element, options) {
+		options.properties.totalItems = Math.round(options.properties.totalItems /
+			options.itemsPage);
 		var totalItems = options.properties.totalItems,
 			items = "";
+
 		if (totalItems > 1) {
 			element.append("<ul class='pagination'></ul>");
 			for (var i = 0; i < totalItems; i++) {
