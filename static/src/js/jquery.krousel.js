@@ -33,17 +33,18 @@
 	function navigateTo (element, options, eq) {
 		if (options.rewind) {
 			options.properties.currentSlide = eq;
-			if (eq > options.properties.totalItems) {
+
+			if (eq > Math.round(options.properties.totalItems)) {
 				eq = 1;
 				options.properties.currentSlide = eq;
 			}
 			if (eq <= 0) {
-				eq = options.properties.totalItems;
+				eq = Math.round(options.properties.totalItems);
 				options.properties.currentSlide = eq;
 			}
 		} else {
 			options.properties.currentSlide = eq;
-			if (eq >= (options.properties.totalItems)) {
+			if (eq >= (Math.round(options.properties.totalItems))) {
 				element.find(".next .pager-button").addClass("hide");
 			} else {
 				element.find(".next .pager-button").removeClass("hide");
@@ -57,13 +58,15 @@
 
 		var slideWidth = element.find(".krousel-item").width(),
 			slideLeftPosition = (eq - 1) * (options.steps * slideWidth),
-			totalSlides = element.find("li").size(),
+			totalSlides = element.find(".krousel-item").size(),
 			estimateTotalSlides = options.itemsPage * options.properties.totalItems;
 
-		if (eq >= (options.properties.totalItems - 1)) {
+		if (eq > (Math.round(options.properties.totalItems))) {
+			slideLeftPosition = slideLeftPosition - ((estimateTotalSlides - totalSlides) * slideWidth);
+		}
+		if (eq <= 1) {
 			slideLeftPosition = slideLeftPosition + ((estimateTotalSlides - totalSlides) * slideWidth);
 		}
-
 
 
 		element.find(".krousel-items").stop().animate({
@@ -77,8 +80,8 @@
 	/* Pagination ***************************************************************/
 
 	function createPagination (element, options) {
-		options.properties.totalItems = Math.round(options.properties.totalItems /
-			options.itemsPage);
+		options.properties.totalItems = options.properties.totalItems /
+			options.itemsPage;
 		var totalItems = options.properties.totalItems,
 			items = "";
 
