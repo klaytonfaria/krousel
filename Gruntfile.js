@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 	"use strict";
 	// Project configuration.
   var options = grunt.file.readJSON("options.json");
+  require('time-grunt')(grunt);
 
 	grunt.initConfig({
 
