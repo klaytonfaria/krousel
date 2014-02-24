@@ -21,6 +21,7 @@
 		this._name = pluginName;
 		this.initProperties();
 		this.init();
+		this.showConsoleDetails(this.options);
 	}
 
 	/* Navigation ***************************************************************/
@@ -34,7 +35,7 @@
 		if (options.rewind) {
 			options.properties.currentSlide = eq;
 
-			if (eq > Math.round(options.properties.totalItems)) {
+			if (eq > Math.round(options.properties.totalPages)) {
 				eq = 1;
 				options.properties.currentSlide = eq;
 			}
@@ -43,23 +44,13 @@
 				options.properties.currentSlide = eq;
 			}
 		} else {
-			options.properties.currentSlide = eq;
-			if (eq >= (Math.round(options.properties.totalItems))) {
-				element.find(".next .pager-button").addClass("hide");
-			} else {
-				element.find(".next .pager-button").removeClass("hide");
-			}
-			if (eq <= 1) {
-				element.find(".previous .pager-button").addClass("hide");
-			} else {
-				element.find(".previous .pager-button").removeClass("hide");
-			}
+			toggleButtonNavigation(element, options, eq);
 		}
 
 		var slideWidth = element.find(".krousel-item").width(),
 			slideLeftPosition = (eq - 1) * (options.steps * slideWidth),
 			totalSlides = element.find(".krousel-item").size(),
-			estimateTotalSlides = options.itemsPage * options.properties.totalItems;
+			estimateTotalSlides = options.itemsPage * options.properties.totalPages;
 
 		if (eq > (Math.round(options.properties.totalItems))) {
 			slideLeftPosition = slideLeftPosition - ((estimateTotalSlides - totalSlides) * slideWidth);
@@ -77,21 +68,37 @@
 		setActivePage (element, options, (eq - 1));
 	}
 
+
 	/* Pagination ***************************************************************/
 
+	function toggleButtonNavigation (element, options, eq) {
+		options.properties.currentSlide = eq;
+			if (eq > (Math.round(options.properties.totalPages))) {
+				element.find(".next .pager-button").addClass("hide");
+			} else {
+				element.find(".next .pager-button").removeClass("hide");
+			}
+			if (eq <= 1) {
+				element.find(".previous .pager-button").addClass("hide");
+			} else {
+				element.find(".previous .pager-button").removeClass("hide");
+			}
+	}
+
 	function createPagination (element, options) {
-		options.properties.totalItems = options.properties.totalItems /
+		options.properties.totalPages = options.properties.totalItems /
 			options.itemsPage;
-		var totalItems = options.properties.totalItems,
+
+		var totalPages = options.properties.totalPages,
 			items = "";
 
-		if (totalItems > 1) {
+		if (totalPages > 1) {
 			element.append("<ul class='pagination'></ul>");
-			for (var i = 0; i < totalItems; i++) {
+			for (var i = 0; i < totalPages; i++) {
 				if (i === 0) {
 					items += "<li class='pagination-item first' data-target='" + i +
 						"'><a href='#'></a></li>";
-				} else if (i === totalItems) {
+				} else if (i === totalPages) {
 					items += "<li class='pagination-item last' data-target='" + i +
 						"'><a href='#'></a></li>";
 				} else {
@@ -178,12 +185,25 @@
 				currentSlide: options.initialPage,
 				totalItems: element.find("li").size()
 			};
+		},
+		showConsoleDetails: function (options) {
+		// Console output
+		console.group("krousel item");
+			console.log("Element: ", this.element);
+			console.log("Total Items: ", options.properties.totalItems);
+			console.log("Total Pages: ", Math.round(options.properties.totalPages));
+
+			console.timeEnd("Time to build");
+		console.groupEnd("krousel item");
 		}
 	};
 
 	$.fn[pluginName] = function (options) {
-		return this.each(function() {
+		return this.each(function(i) {
 			if ( !$.data( this, "plugin_" + pluginName ) ) {
+				if(console) { // Initialize timer when plugin initialize
+					console.time("Time to build");
+				}
 				$.data( this, "plugin_" + pluginName, new Plugin(this, options));
 			}
 		});
