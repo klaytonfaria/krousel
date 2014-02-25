@@ -3,15 +3,15 @@
 
 	var pluginName = "krousel",
 		defaults = {
-			initialPage		: 1,			// Initial page
-			itemsPage			: 1,			// Total of items for page
-			steps					: 1,			// Total of steps for pagination
-			rewind				: true,		// Set pagination as infinite or rewind
-			animationTime	: 300,		// Set animation time
+			initialPage		: 1,		// Initial page
+			steps					: 1,		// Total of steps for pagination
+			rewind				: true,	// Set pagination as infinite or rewind
+			animationTime	: 300,	// Set animation time
 			controls: {
-				pager: true,				// <boolean> Enable / disable prev and next controls
+				navigation: true,				// <boolean> Enable / disable prev and next controls
 				pagination: true		// <boolean> Enable / disable pagination control
-			}
+			},
+			debug: false					// <boolean> Enable / disable console
 		};
 
 	function Plugin (element, options) {
@@ -19,9 +19,10 @@
 		this.options = $.extend( {}, defaults, options );
 		this._defaults = defaults;
 		this._name = pluginName;
-		this.initProperties();
 		this.init();
-		this.showConsoleDetails(this.options);
+		if(this.options.debug) {
+			this.showConsoleDetails(this.options);
+		}
 	}
 
 	/* Navigation ***************************************************************/
@@ -31,7 +32,10 @@
 			.addClass("active");
 	}
 
-	function navigateTo (element, options, eq) {
+	function navigateTo (element, options, eq, event) {
+		if(event) {
+			console.log(toString(event.target));
+		}
 		if (options.rewind) {
 			options.properties.currentSlide = eq;
 
@@ -50,7 +54,7 @@
 		var slideWidth = element.find(".krousel-item").width(),
 			slideLeftPosition = (eq - 1) * (options.steps * slideWidth),
 			totalSlides = element.find(".krousel-item").size(),
-			estimateTotalSlides = options.itemsPage * options.properties.totalPages;
+			estimateTotalSlides = options.properties.itemsPage * options.properties.totalPages;
 
 		if (eq > (Math.round(options.properties.totalItems))) {
 			slideLeftPosition = slideLeftPosition - ((estimateTotalSlides - totalSlides) * slideWidth);
@@ -86,8 +90,9 @@
 	}
 
 	function createPagination (element, options) {
+
 		options.properties.totalPages = options.properties.totalItems /
-			options.itemsPage;
+			options.properties.itemsPage;
 
 		var totalPages = options.properties.totalPages,
 			items = "";
@@ -110,7 +115,7 @@
 		}
 	}
 
-	function createPager (element) {
+	function createNavigationControl (element) {
 		element.append("<div class='pager previous'><button class='pager-button'>" +
 			"&nbsp;</button></div> " +
 			"<div class='pager next'><button class='pager-button'>" +
@@ -120,37 +125,38 @@
 	/* Mount controls ***********************************************************/
 
 	function mountControls (element, options) {
-		if (options.controls.pager) {
-			createPager(element);
+		if (options.controls.navigation) {
+			createNavigationControl(element);
 		}
 		if (options.controls.pagination) {
 			createPagination(element, options);
 		}
-		if (options.controls.pagination || options.controls.pager) {
+		if (options.controls.pagination || options.controls.navigation) {
 			bindControlsEvents (element, options);
 		}
 	}
 
 	/* Bind events **************************************************************/
+
 	function bindControlsEvents (element, options) {
 		// Pagination
-		element.find(".pagination-item").click(function() {
+		element.find(".pagination-item").click(function(event) {
 			var eq = parseInt(this.getAttribute("data-target"), 10) + 1;
-			navigateTo (element, options, eq);
+			navigateTo (element, options, eq, event);
 		});
-		// Pager
-		element.find(".pager-button").click(function() {
+		// Navigation
+		element.find(".pager-button").click(function(event) {
 			var eq = options.properties.currentSlide;
 			if (this.parentNode.getAttribute("class").indexOf("next") >= 0) {
-				navigateTo (element, options, (eq + 1));
+				navigateTo (element, options, (eq + 1), event);
 			}
 			if (this.parentNode.getAttribute("class").indexOf("previous") >= 0){
-				navigateTo (element, options, (eq - 1));
+				navigateTo (element, options, (eq - 1)), event;
 			}
 		});
 
 		window.onresize = function() {
-      if (options.itemsPage === 1) {
+      if (options.properties.itemsPage === 1) {
         options.properties.itemWidth = element
           .find(".krousel-item:eq(0)").width();
 
@@ -174,27 +180,30 @@
 			var element = $(this.element),
 				options = this.options;
 
+			this.initProperties(element, options); // setting plugin
 			mountControls(element, options);
 			navigateTo(element, options, options.initialPage); // Setting initial page
 		},
-		initProperties: function () {
-			var element = $(this.element),
-				options = this.options;
-
+		initProperties: function (element, options) {
+			console.log(element.find(".krousel-item:eq(0)").width());
 			options.properties = {
 				currentSlide: options.initialPage,
-				totalItems: element.find("li").size()
+				totalItems: element.find(".krousel-item").size(),
+				itemsPage: (element.width() / element
+					.find(".krousel-item:eq(0)").width())
 			};
 		},
 		showConsoleDetails: function (options) {
 		// Console output
-		console.group("krousel item");
-			console.log("Element: ", this.element);
-			console.log("Total Items: ", options.properties.totalItems);
-			console.log("Total Pages: ", Math.round(options.properties.totalPages));
-
-			console.timeEnd("Time to build");
-		console.groupEnd("krousel item");
+			if(console) {
+				console.group("krousel item");
+					console.log("Total Items: ", options.properties.totalItems);
+					console.log("Total Pages: ", Math.round(options.properties.totalPages));
+					console.log("Seletor: %s", this.element);
+					console.log("Element: %o", this.element);
+					console.timeEnd("Time to build");
+				console.groupEnd("krousel item");
+			}
 		}
 	};
 
